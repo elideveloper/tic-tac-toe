@@ -1,6 +1,8 @@
 package minimax
 
-import "fmt"
+import (
+	"fmt"
+)
 
 const (
 	maxPossibleVal      = 999_999_999.99
@@ -10,15 +12,28 @@ const (
 
 type State interface {
 	Eval() float64
+	EvalNotTerminal() float64
 	GetChildren(isMaximizer bool) []State
 }
 
 func FindBestUsingMinimax(currState State, isMaximizer bool) State {
 	val, bestState := minimax(currState, minPossibleVal, maxPossibleVal, isMaximizer, 1)
 	if val > 0.0 {
-		fmt.Println("found a winning move, val: ", val)
+		fmt.Println("found a good move, val: ", val)
 	} else {
-		fmt.Println("did not find a winning move, val: ", val)
+		fmt.Println("did not find a good move, val: ", val)
+
+		fmt.Println("searching for heuristic evaluation")
+		ch := currState.GetChildren(isMaximizer)
+		var bestVal float64
+		for i := range ch {
+			v := ch[i].EvalNotTerminal()
+			if v > bestVal {
+				bestState = ch[i]
+				bestVal = v
+			}
+		}
+
 	}
 	return bestState
 }

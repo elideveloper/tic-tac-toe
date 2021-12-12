@@ -7,6 +7,9 @@ tasks:
   build:
     cmds:
       - go install ./...
+  lint:
+    cmds:
+      - golangci-lint run
   test:
     cmds:
       - go test ./... -count=1 -v

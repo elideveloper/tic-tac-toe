@@ -13,6 +13,7 @@ import (
 
 // TODO need not terminal estimation for movies
 // because bot cannot find full path to win with small depth (6-8)
+// IN PROGRESS
 
 func main() {
 	for {

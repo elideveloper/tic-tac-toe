@@ -16,6 +16,12 @@ func (m *StateMock) Eval() float64 {
 	return args.Get(0).(float64)
 }
 
+func (m *StateMock) EvalNotTerminal() float64 {
+	args := m.Called()
+	fmt.Println("eval ", args.Get(0))
+	return args.Get(0).(float64)
+}
+
 func (m *StateMock) GetChildren(isMaximizer bool) []State {
 	args := m.Called(isMaximizer)
 	return args.Get(0).([]State)
